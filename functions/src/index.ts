@@ -9,26 +9,25 @@ export const getHippos = functions.https.onRequest(async (request, response) => 
 
 
     const connection = await connect();
-    // const connection = await createConnection(config);
     const hippoRepo = connection.getRepository(Hippo);
 
 
     // Count records
-    // const count = await hippos.count();
+    // const count = await hippoRepo.count();
 
     // // Get all 
-    // const allHippos = await hippos.find();
+    const allHippos = await hippoRepo.find();
 
     // Raw SQL Query
-    // const query = await hippos.query('SELECT name FROM hippo WHERE WEIGHT > 5');
+    // const query = await hippoRepo.query('SELECT name FROM hippo WHERE WEIGHT > 5');
 
 
-    const hipposWearingHats = await hippoRepo
-                                .createQueryBuilder('hippo')
-                                .leftJoinAndSelect('hippo.hats', 'hat')
-                                .getMany();
+    // const hipposWearingHats = await hippoRepo
+    //                             .createQueryBuilder('hippo')
+    //                             .leftJoinAndSelect('hippo.hats', 'hat')
+    //                             .getMany();
 
-    response.send(hipposWearingHats);
+    response.send(allHippos);
 
 });
 
@@ -77,29 +76,3 @@ export const createHat = functions.https.onRequest(async (request, response) => 
         response.send(error)
     }
 });
-
-
-
-
-
-
-// ./cloud_sql_proxy -instances=<INSTANCE_CONNECTION_NAME>=tcp:3306
-
-
-        //     {
-        //     type: "mysql",
-        //     host: "localhost",
-        //     port: 3306,
-        //     username: "root",
-        //     password: "admin",
-        //     database: "test",
-        //     entities: [
-        //         // Hippo
-        //         __dirname + "/entity/*.js"
-        //     ],
-        //     synchronize: true,
-        //     logging: false
-        // }
-
-
-        // ./cloud_sql_proxy -instances=fireship-lessons:us-central1:quick-test=tcp:3306

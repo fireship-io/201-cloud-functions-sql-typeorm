@@ -21,7 +21,7 @@ export const config: ConnectionOptions = {
 
     // Production Mode
     ...(prod && {
-        database: 'development',
+        database: 'production',
         logging: false,
         // synchronize: false,
         extra: {
